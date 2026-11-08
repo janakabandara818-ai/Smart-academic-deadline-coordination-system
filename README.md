@@ -1,2 +1,2 @@
-# Smart-Academic-Deadline-Coordination-System
-Smart Academic Deadline Coordination System — faculty prototype with Moodle integration.
+# Smart-academic-deadline-coordination-system
+Smart Academic Deadline Coordination System with Moodle LMS Integration.

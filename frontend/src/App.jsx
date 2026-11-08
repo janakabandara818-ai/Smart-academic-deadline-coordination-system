@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   BrowserRouter,
-  Navigate,
   Route,
   Routes,
   useLocation,
@@ -13,14 +12,7 @@ import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import ComingSoon from "./components/ComingSoon";
 import Dashboard from "./pages/Dashboard";
-import UnifiedCalendar from "./pages/UnifiedCalendar";
 import DeadlinePlanner from "./pages/DeadlinePlanner";
-import WorkloadAnalysis from "./pages/WorkloadAnalysis";
-import SmartSuggestions from "./pages/SmartSuggestions";
-import MoodleIntegration from "./pages/MoodleIntegration";
-import AdminManagement from "./pages/AdminManagement";
-import StudentDashboard from "./pages/StudentDashboard";
-import Settings from "./pages/Settings";
 import "./styles/global.css";
 
 function Layout() {
@@ -48,10 +40,8 @@ function Layout() {
       window.removeEventListener("keydown", close);
     };
   }, [menuOpen]);
-  const staff = (page) =>
-    role !== "Student" ? page : <Navigate to="/" replace />;
-  const lecturerFeature = (feature, page) =>
-    role === "Lecturer" ? <ComingSoon feature={feature} /> : page;
+  const lecturerPage = (feature, page) =>
+    role === "Lecturer" ? page : <ComingSoon feature={feature} />;
   return (
     <>
       <a href="#main-content" className="skip-link">
@@ -69,54 +59,45 @@ function Layout() {
             <Route
               path="/"
               element={
-                role === "Student" ? <StudentDashboard /> : <Dashboard />
-              }
-            />
-            <Route
-              path="/calendar"
-              element={lecturerFeature("Unified Calendar", <UnifiedCalendar />)}
-            />
-            <Route path="/planner" element={staff(<DeadlinePlanner />)} />
-            <Route
-              path="/analysis"
-              element={staff(
-                lecturerFeature("Workload Analysis", <WorkloadAnalysis />),
-              )}
-            />
-            <Route
-              path="/suggestions"
-              element={staff(
-                lecturerFeature("Smart Suggestions", <SmartSuggestions />),
-              )}
-            />
-            {/* Notifications remain disabled for other roles. */}
-            {role === "Lecturer" && (
-              <Route
-                path="/notifications"
-                element={<ComingSoon feature="Notifications" />}
-              />
-            )}
-            <Route
-              path="/moodle"
-              element={staff(
-                lecturerFeature("Moodle Integration", <MoodleIntegration />),
-              )}
-            />
-            <Route
-              path="/admin"
-              element={
-                role === "Admin" ? (
-                  <AdminManagement />
-                ) : (
-                  <Navigate to="/" replace />
+                lecturerPage(
+                  role === "Student" ? "Student Dashboard" : "Admin Management",
+                  <Dashboard />,
                 )
               }
             />
             <Route
-              path="/settings"
-              element={lecturerFeature("Settings", <Settings />)}
+              path="/calendar"
+              element={<ComingSoon feature="Unified Calendar" />}
             />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route
+              path="/planner"
+              element={lecturerPage("Deadline Planner", <DeadlinePlanner />)}
+            />
+            <Route
+              path="/analysis"
+              element={<ComingSoon feature="Workload Analysis" />}
+            />
+            <Route
+              path="/suggestions"
+              element={<ComingSoon feature="Smart Suggestions" />}
+            />
+            <Route
+              path="/notifications"
+              element={<ComingSoon feature="Notifications" />}
+            />
+            <Route
+              path="/moodle"
+              element={<ComingSoon feature="Moodle Integration" />}
+            />
+            <Route
+              path="/admin"
+              element={<ComingSoon feature="Admin Management" />}
+            />
+            <Route
+              path="/settings"
+              element={<ComingSoon feature="Settings" />}
+            />
+            <Route path="*" element={<ComingSoon feature="This page" />} />
           </Routes>
         </main>
       </div>
