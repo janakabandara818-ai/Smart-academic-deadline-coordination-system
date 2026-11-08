@@ -1,0 +1,20 @@
+
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Firebase credentials
+*service-account*.json
+*firebase-adminsdk*.json
+serviceAccountKey.json
+
+# Build and test outputs
+dist/
+coverage/
+
+# Logs
+*.log
