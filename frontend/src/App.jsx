@@ -13,6 +13,7 @@ import Header from "./components/Header";
 import ComingSoon from "./components/ComingSoon";
 import Dashboard from "./pages/Dashboard";
 import DeadlinePlanner from "./pages/DeadlinePlanner";
+import DeadlineViewer from "./pages/DeadlineViewer";
 import "./styles/global.css";
 
 function Layout() {
@@ -67,7 +68,7 @@ function Layout() {
             />
             <Route
               path="/calendar"
-              element={<ComingSoon feature="Unified Calendar" />}
+              element={<DeadlineViewer />}
             />
             <Route
               path="/planner"

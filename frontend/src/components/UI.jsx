@@ -77,13 +77,18 @@ export function Modal({ title, children, onClose }) {
   const ref = useRef(null);
   useEffect(() => {
     const dialog = ref.current;
+    const previousFocus = document.activeElement;
     dialog.showModal();
-    return () => dialog.close();
+    return () => {
+      dialog.close();
+      previousFocus?.focus();
+    };
   }, []);
   return (
     <dialog
       ref={ref}
       className="modal"
+      aria-label={title}
       onCancel={onClose}
       onClick={(event) => {
         if (event.target === event.currentTarget) onClose();

@@ -40,7 +40,7 @@ test("lecturer dashboard and planner stay active while analysis is coming soon",
   ).toBeVisible();
   await page.getByRole("link", { name: "View all", exact: true }).click();
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "Unified Calendar \u2013 Coming Soon",
+    "Assignment Deadlines",
   );
   expect(errors).toEqual([]);
 });
@@ -135,7 +135,6 @@ test("inactive routes show Coming Soon for every demo role", async ({ page }) =>
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   const routes = [
-    ["/calendar", "Unified Calendar"],
     ["/analysis", "Workload Analysis"],
     ["/suggestions", "Smart Suggestions"],
     ["/notifications", "Notifications"],

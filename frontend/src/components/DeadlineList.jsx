@@ -26,6 +26,8 @@ export default function DeadlineList({
   allDeadlines = deadlines,
   limit,
   showRisk = false,
+  emptyTitle,
+  emptyDescription,
 }) {
   const [detail, setDetail] = useState(null);
   const visible = [...deadlines]
@@ -78,7 +80,7 @@ export default function DeadlineList({
           })}
         </div>
       ) : (
-        <EmptyState />
+        <EmptyState title={emptyTitle} description={emptyDescription} />
       )}
       {detail && (
         <DeadlineDetails deadline={detail} onClose={() => setDetail(null)} />
